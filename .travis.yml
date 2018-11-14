@@ -5,49 +5,55 @@ matrix:
     os: linux
     sudo: required
     install:
-    - pip install -r requirements.txt
+      - pip install -r requirements.txt
     script:
-    - pycodestyle src/sysinfo.py
+      - pycodestyle src/sysinfo.py
+      - python src/sysinfo.py -S
   - language: python
     python: 2.7
     os: linux
     sudo: required
     install:
-    - pip install -r requirements.txt
+      - pip install -r requirements.txt
     script:
-    - pycodestyle src/sysinfo.py
+      - pycodestyle src/sysinfo.py
+      - python src/sysinfo.py -S
   - language: python
     python: 3.3
     os: linux
     sudo: required
     install:
-    - pip install -r requirements.txt
+      - pip install -r requirements.txt
     script:
-    - pycodestyle src/sysinfo.py
+      - pycodestyle src/sysinfo.py
+      - python src/sysinfo.py -S
   - language: python
     python: 3.4
     os: linux
     sudo: required
     install:
-    - pip install -r requirements.txt
+      - pip install -r requirements.txt
     script:
-    - pycodestyle src/sysinfo.py
+      - pycodestyle src/sysinfo.py
+      - python src/sysinfo.py -S
   - language: python
     python: 3.5
     os: linux
     sudo: required
     install:
-    - pip install -r requirements.txt
+      - pip install -r requirements.txt
     script:
-    - pycodestyle src/sysinfo.py
+      - pycodestyle src/sysinfo.py
+      - python src/sysinfo.py -S
   - language: python
     python: 3.6
     os: linux
     sudo: required
     install:
-    - pip install -r requirements.txt
+      - pip install -r requirements.txt
     script:
-    - pycodestyle src/sysinfo.py
+      - pycodestyle src/sysinfo.py
+      - python src/sysinfo.py -S
   - language: ruby
     rvm: 2.2
     before_script: gem install awesome_bot
