@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 
 """
-Stuff
+Started out as a simple script to output information about the system,
+but I got carried away :)
 """
 
 from __future__ import print_function
@@ -25,6 +26,7 @@ import pprint
 
 def convert_bytes(n):
     """
+    Convert the number of bytes into something more human-readable
     """
 
     symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
@@ -40,6 +42,7 @@ def convert_bytes(n):
 
 def secs2hours(secs):
     """
+    Convert the number of seconds into hours, mintues and seconds (digital format)
     """
 
     mm, ss = divmod(secs, 60)
@@ -49,6 +52,7 @@ def secs2hours(secs):
 
 def seconds_to_days(secs):
     """
+    Convert the number of seconds into days, hours, mintues and seconds (string format)
     """
     parts = []
 
@@ -72,6 +76,7 @@ def seconds_to_days(secs):
 
 def battery_info():
     """
+    Battery Information
     """
     if not hasattr(psutil, "sensors_battery"):
         print("platform not supported")
@@ -94,6 +99,7 @@ def battery_info():
 
 def cpu_info():
     """
+    CPU Information
     """
     cpu_count = psutil.cpu_count()
 
@@ -102,6 +108,7 @@ def cpu_info():
 
 def disk_info():
     """
+    Disk Information
     """
 
     templ = "%-17s %8s %8s %8s %5s%% %9s  %s"
@@ -127,6 +134,7 @@ def disk_info():
 
 def fan_info():
     """
+    Fan Information
     """
 
     if not hasattr(psutil, "sensors_fans"):
@@ -144,6 +152,7 @@ def fan_info():
 
 def free_memory_info():
     """
+    Free Memory Information
     """
     virt = psutil.virtual_memory()
     swap = psutil.swap_memory()
@@ -168,6 +177,7 @@ def free_memory_info():
 
 def load_average():
     """
+    Load Average Information
     """
     a = os.getloadavg()
     print('Load: %s, %s, %s' % (round(a[0], 2), round(a[1], 2), round(a[2], 2)))
@@ -175,6 +185,7 @@ def load_average():
 
 def pprint_ntuple(nt):
     """
+    Print a Tuple
     """
     for name in nt._fields:
         value = getattr(nt, name)
@@ -194,6 +205,7 @@ def memory_info():
 
 def netstat_info():
     """
+    Netstat Information
     """
     AD = "-"
     AF_INET6 = getattr(socket, 'AF_INET6', object())
@@ -232,6 +244,7 @@ def netstat_info():
 
 def network_info():
     """
+    Network Information
     """
 
     af_map = {
@@ -280,6 +293,7 @@ def network_info():
 
 def operating_system_info():
     """
+    Operating System Information
     """
     print('Normal : %s' % platform.platform())
     print('Aliased: %s' % platform.platform(aliased=True))
@@ -295,6 +309,7 @@ def operating_system_info():
 
 def process_info():
     """
+    Process Information
     """
 
     PROC_STATUSES_RAW = {
@@ -379,6 +394,7 @@ def process_info():
 
 def sensor_info():
     """
+    Sensor Information
     """
     if hasattr(psutil, "sensors_temperatures"):
         temps = psutil.sensors_temperatures()
@@ -430,6 +446,7 @@ def sensor_info():
 
 def temperature_info():
     """
+    Temperature Information
     """
     if not hasattr(psutil, "sensors_temperatures"):
         print("platform not supported")
@@ -448,6 +465,7 @@ def temperature_info():
 
 def uptime_info():
     """
+    Uptime Information
     """
 
     print('Uptime: %s.' % seconds_to_days(uptime()))
@@ -456,6 +474,7 @@ def uptime_info():
 
 def summary_info():
     """
+    Summary Information
     """
 
     disk_parts = []
