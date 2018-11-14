@@ -1,0 +1,59 @@
+matrix:
+  include:
+  - language: python
+    python: 2.6
+    os: linux
+    sudo: required
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pycodestyle src/sysinfo.py
+  - language: python
+    python: 2.7
+    os: linux
+    sudo: required
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pycodestyle src/sysinfo.py
+  - language: python
+    python: 3.3
+    os: linux
+    sudo: required
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pycodestyle src/sysinfo.py
+  - language: python
+    python: 3.4
+    os: linux
+    sudo: required
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pycodestyle src/sysinfo.py
+  - language: python
+    python: 3.5
+    os: linux
+    sudo: required
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pycodestyle src/sysinfo.py
+  - language: python
+    python: 3.6
+    os: linux
+    sudo: required
+    install:
+    - pip install -r requirements.txt
+    script:
+    - pycodestyle src/sysinfo.py
+  - language: ruby
+    rvm: 2.2
+    before_script: gem install awesome_bot
+    script: find . -type f -name "*.md" | while read file; do awesome_bot $file --allow-redirect
+      --allow-dupe -w github.com/AntiPhotonltd/sysinfo/; done
+notifications:
+  email: false
+  slack:
+    secure: daM1uMD+pxv3+OJrANKNz4f30drnZyNE1cXTiiMh1zDPgkxWpCRRMGaUjN2dwz0iiq6umbrUSk/SlV+Tcu8QkW/DqymrabpHn/IJO7cshuUlrKS+bQQ5xl+r0BldQNInVPv7KVr/FyBkUNq2/k9WtPiUuUXhQzMcDQ4mAdZRhqsPBQfbn/4/mNXgO7BIl9ClQmlqXX6/lhHHeW/O8dq2R6qD/0oXF6RaJtCX7BWCdb6SSZrvjheoy3mTHqK+DArWB6I0ga2Lt4niJJpcbPgok/ASj84ZREbxmxjBonldui+gi7CG4dIs+ONfDEbDEUZ/1VQIv6fvwrvzb88VcCF12mjowZqDFBTfrnQqh9BGRwqbL1ED7Pkev9zPXWlrZTU/byCPdsjDKkvW5pXkdUzS5SXGYrjSKSBIEXyt1BpaJENrTOcDxwbEelGD7z0sQ9Rq3D3c9/da6ySe5ZSELsuYTIcj2n1cRuY7pCJmW9jwGwGZyfcT37230Y+S/qiHAEwnaK22W/HmSAT3l3O8kuGYuTzy6a/JjMQBCrPCLZIaArBcqsI9/fcA5JedJQ9q9DkhAPClqEzBil+yNp4wkzf2IawH+iVmBRjpHAXNWtnnwo6ibRMM1DUZTZ6reE2ZF9K7P6s7zzlkLakJBhXyDMwO9Jon3l1atqor+A7Cc+sk6Sg=
