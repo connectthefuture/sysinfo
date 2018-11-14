@@ -492,7 +492,7 @@ def summary_info():
         nic_parts.append(nic)
 
     print('Uptime:    %s (Booted: %s)' % (seconds_to_days(uptime()), boottime().strftime('%c')))
-    print('CPUs:      %s (%3.1f BogoMIPS)' % (psutil.cpu_count(), psutil.cpu_freq().current))
+    print('CPUs:      %s' % psutil.cpu_count())
     print('Memory:    Total %s, Available %s, Free %.2f %%' % (convert_bytes(virt.total), convert_bytes(virt.available), (100 - virt.percent)))
     print('Swap:      Total %s, Available %s, Free %.2f %%' % (convert_bytes(swap.total), convert_bytes(swap.free), (100 - swap.percent)))
     print('Disks:     %s (%s)' % (len(disks), ", ".join(disk_parts)))
