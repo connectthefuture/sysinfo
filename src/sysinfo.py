@@ -101,9 +101,12 @@ def cpu_info():
     """
     CPU Information
     """
-    cpu_count = psutil.cpu_count()
+    freq = psutil.cpu_freq()
 
-    print("CPUs: %d" % cpu_count)
+    print("CPUs: %d" % psutil.cpu_count())
+
+    if freq is not None:
+        print("Frequency: Current (%s), Min (%s), Max (%s)" % (freq.current, freq.min, freq.max))
 
 
 def disk_info():
@@ -484,6 +487,7 @@ def summary_info():
     swap = psutil.swap_memory()
     disks = psutil.disk_partitions()
     nics = psutil.net_io_counters(pernic=True)
+    freq = psutil.cpu_freq()
 
     for disk in disks:
         disk_parts.append(disk.mountpoint)
@@ -492,7 +496,12 @@ def summary_info():
         nic_parts.append(nic)
 
     print('Uptime:    %s (Booted: %s)' % (seconds_to_days(uptime()), boottime().strftime('%c')))
-    print('CPUs:      %s' % psutil.cpu_count())
+
+    if freq is not None:
+        print("CPUs: %d (Frequency - Current (%s), Min (%s), Max (%s))" % (psutil.cpu_count(), freq.current, freq.min, freq.max))
+    else:
+        print('CPUs:      %s' % psutil.cpu_count())
+
     print('Memory:    Total %s, Available %s, Free %.2f %%' % (convert_bytes(virt.total), convert_bytes(virt.available), (100 - virt.percent)))
     print('Swap:      Total %s, Available %s, Free %.2f %%' % (convert_bytes(swap.total), convert_bytes(swap.free), (100 - swap.percent)))
     print('Disks:     %s (%s)' % (len(disks), ", ".join(disk_parts)))
