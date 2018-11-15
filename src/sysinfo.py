@@ -23,23 +23,30 @@ from uptime import boottime
 
 import pprint
 
-def convert_bytes(size_bytes):
+
+def human_size(size_bytes, a_kilobyte_is_1024_bytes=True):
     """
     format a size in bytes into a 'human' file size, e.g. bytes, KB, MB, GB, TB, PB, EB, ZB, YB
-    Note that bytes/KB will be reported in whole numbers but MB and above will have greater precision
+    Note that by default, bytes/KB will be reported in whole numbers but MB and above will have greater precision
     e.g. 1 byte, 43 bytes, 443 KB, 4.3 MB, 4.43 GB, etc
     """
+
+    suffixes_table = {1000: [('bytes', 0), ('KB', 0), ('MB', 1), ('GB', 2), ('TB', 2), ('PB', 2), ('EB', 2), ('ZB', 2), ('YB', 2)],
+                      1024: [('bytes', 0), ('KiB', 0), ('MiB', 1), ('GiB', 2), ('TiB', 2), ('PiB', 2), ('EiB', 2), ('ZiB', 2), ('YiB', 2)]}
+
+    if size_bytes < 0:
+        raise ValueError('number must be non-negative')
+
     if size_bytes == 1:
-        # because I really hate unnecessary plurals
         return "1 byte"
 
-    suffixes_table = [('bytes',0),('KB',0),('MB',1),('GB',2),('TB',2),('PB',2),('EB',2),('ZB',2),('YB',2)]
+    multiple = 1024 if a_kilobyte_is_1024_bytes else 1000
 
     num = float(size_bytes)
-    for suffix, precision in suffixes_table:
-        if num < 1024.0:
+    for suffix, precision in suffixes_table[multiple]:
+        if num < multiple:
             break
-        num /= 1024.0
+        num /= multiple
 
     if precision == 0:
         formatted_size = "%d" % num
@@ -47,22 +54,6 @@ def convert_bytes(size_bytes):
         formatted_size = str(round(num, ndigits=precision))
 
     return "%s %s" % (formatted_size, suffix)
-
-
-def convert_bytes_2(n):
-    """
-    Convert the number of bytes into something more human-readable
-    """
-
-    symbols = ('K', 'M', 'G', 'T', 'P', 'E', 'Z', 'Y')
-    prefix = {}
-    for i, s in enumerate(symbols):
-        prefix[s] = 1 << (i + 1) * 10
-    for s in reversed(symbols):
-        if n >= prefix[s]:
-            value = float(n) / prefix[s]
-            return '%.1f%s' % (value, s)
-    return "%sB" % n
 
 
 def secs2hours(secs):
@@ -139,7 +130,7 @@ def disk_info():
     Disk Information
     """
 
-    templ = "%-17s %8s %8s %8s %5s%% %9s  %s"
+    templ = "%-17s %10s %10s %10s %5s%% %9s  %s"
     print(templ % ("Device", "Total", "Used", "Free", "Use ", "Type",
                    "Mount"))
     for part in psutil.disk_partitions(all=False):
@@ -152,9 +143,9 @@ def disk_info():
         usage = psutil.disk_usage(part.mountpoint)
         print(templ % (
             part.device,
-            convert_bytes(usage.total),
-            convert_bytes(usage.used),
-            convert_bytes(usage.free),
+            human_size(usage.total),
+            human_size(usage.used),
+            human_size(usage.free),
             int(usage.percent),
             part.fstype,
             part.mountpoint))
@@ -218,7 +209,7 @@ def pprint_ntuple(nt):
     for name in nt._fields:
         value = getattr(nt, name)
         if name != 'percent':
-            value = convert_bytes(value)
+            value = human_size(value)
         print('%-10s : %7s' % (name.capitalize(), value))
 
 
@@ -301,11 +292,11 @@ def network_info():
             io = io_counters[nic]
             print("    incoming       : ", end='')
             print("bytes=%s, pkts=%s, errs=%s, drops=%s" % (
-                convert_bytes(io.bytes_recv), io.packets_recv, io.errin,
+                human_size(io.bytes_recv), io.packets_recv, io.errin,
                 io.dropin))
             print("    outgoing       : ", end='')
             print("bytes=%s, pkts=%s, errs=%s, drops=%s" % (
-                convert_bytes(io.bytes_sent), io.packets_sent, io.errout,
+                human_size(io.bytes_sent), io.packets_sent, io.errout,
                 io.dropout))
         for addr in addrs:
             print("    %-4s" % af_map.get(addr.family, addr.family), end="")
@@ -527,8 +518,8 @@ def summary_info():
     else:
         print('CPUs:      %s' % psutil.cpu_count())
 
-    print('Memory:    Total %s, Available %s, Free %.2f %%' % (convert_bytes(virt.total), convert_bytes(virt.available), (100 - virt.percent)))
-    print('Swap:      Total %s, Available %s, Free %.2f %%' % (convert_bytes(swap.total), convert_bytes(swap.free), (100 - swap.percent)))
+    print('Memory:    Total %s, Available %s, Free %.2f %%' % (human_size(virt.total), human_size(virt.available), (100 - virt.percent)))
+    print('Swap:      Total %s, Available %s, Free %.2f %%' % (human_size(swap.total), human_size(swap.free), (100 - swap.percent)))
     print('Disks:     %s (%s)' % (len(disks), ", ".join(disk_parts)))
     print('NICs:      %s (%s)' % (len(nics), ", ".join(nic_parts)))
     print('Processes: %s' % len(psutil.pids()))
