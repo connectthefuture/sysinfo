@@ -5,60 +5,61 @@ matrix:
     os: linux
     sudo: required
     install:
-      - pip install -r requirements.txt
+      - "./travis/python/install.sh"
     script:
-      - pycodestyle src/sysinfo.py
+      - "./travis/python/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 2.7
     os: linux
     sudo: required
     install:
-      - pip install -r requirements.txt
+      - "./travis/python/install.sh"
     script:
-      - pycodestyle src/sysinfo.py
+      - "./travis/python/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.3
     os: linux
     sudo: required
     install:
-      - pip install -r requirements.txt
+      - "./travis/python/install.sh"
     script:
-      - pycodestyle src/sysinfo.py
+      - "./travis/python/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.4
     os: linux
     sudo: required
     install:
-      - pip install -r requirements.txt
+      - "./travis/python/install.sh"
     script:
-      - pycodestyle src/sysinfo.py
+      - "./travis/python/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.5
     os: linux
     sudo: required
     install:
-      - pip install -r requirements.txt
+      - "./travis/python/install.sh"
     script:
-      - pycodestyle src/sysinfo.py
+      - "./travis/python/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.6
     os: linux
     sudo: required
     install:
-      - pip install -r requirements.txt
+      - "./travis/python/install.sh"
     script:
-      - pycodestyle src/sysinfo.py
+      - "./travis/python/build.sh"
       - python src/sysinfo.py -S
   - language: ruby
     rvm: 2.2
-    before_script: gem install awesome_bot
-    script: find . -type f -name "*.md" | while read file; do awesome_bot $file --allow-redirect
-      --allow-dupe -w github.com/AntiPhotonltd/sysinfo/; done
+    install:
+      - "./travis/markdown/install.sh"
+    script: 
+      - "./travis/markdown/build.sh"
 notifications:
   email: false
   slack:

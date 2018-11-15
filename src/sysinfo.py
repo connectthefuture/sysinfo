@@ -23,8 +23,33 @@ from uptime import boottime
 
 import pprint
 
+def convert_bytes(size_bytes):
+    """
+    format a size in bytes into a 'human' file size, e.g. bytes, KB, MB, GB, TB, PB, EB, ZB, YB
+    Note that bytes/KB will be reported in whole numbers but MB and above will have greater precision
+    e.g. 1 byte, 43 bytes, 443 KB, 4.3 MB, 4.43 GB, etc
+    """
+    if size_bytes == 1:
+        # because I really hate unnecessary plurals
+        return "1 byte"
 
-def convert_bytes(n):
+    suffixes_table = [('bytes',0),('KB',0),('MB',1),('GB',2),('TB',2),('PB',2),('EB',2),('ZB',2),('YB',2)]
+
+    num = float(size_bytes)
+    for suffix, precision in suffixes_table:
+        if num < 1024.0:
+            break
+        num /= 1024.0
+
+    if precision == 0:
+        formatted_size = "%d" % num
+    else:
+        formatted_size = str(round(num, ndigits=precision))
+
+    return "%s %s" % (formatted_size, suffix)
+
+
+def convert_bytes_2(n):
     """
     Convert the number of bytes into something more human-readable
     """
