@@ -1,65 +1,79 @@
-matrix:
-  include:
+sudo: required
   - language: python
     python: 2.6
     os: linux
-    sudo: required
+    before_install:
+      - mkdir travis
+      - git clone https://github.com/TravisToolbox/pycodestyle-travis.git travis/pycodetyle
     install:
-      - "./travis/python/install.sh"
+      - "./travis/pycodetyle/install.sh"
     script:
-      - "./travis/python/build.sh"
+      - "./travis/pycodetyle/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 2.7
     os: linux
-    sudo: required
+    before_install:
+      - mkdir travis
+      - git clone https://github.com/TravisToolbox/pycodestyle-travis.git travis/pycodetyle
     install:
-      - "./travis/python/install.sh"
+      - "./travis/pycodetyle/install.sh"
     script:
-      - "./travis/python/build.sh"
+      - "./travis/pycodetyle/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.3
     os: linux
-    sudo: required
+    before_install:
+      - mkdir travis
+      - git clone https://github.com/TravisToolbox/pycodestyle-travis.git travis/pycodetyle
     install:
-      - "./travis/python/install.sh"
+      - "./travis/pycodetyle/install.sh"
     script:
-      - "./travis/python/build.sh"
+      - "./travis/pycodetyle/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.4
     os: linux
-    sudo: required
+    before_install:
+      - mkdir travis
+      - git clone https://github.com/TravisToolbox/pycodestyle-travis.git travis/pycodetyle
     install:
-      - "./travis/python/install.sh"
+      - "./travis/pycodetyle/install.sh"
     script:
-      - "./travis/python/build.sh"
+      - "./travis/pycodetyle/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.5
     os: linux
-    sudo: required
+    before_install:
+      - mkdir travis
+      - git clone https://github.com/TravisToolbox/pycodestyle-travis.git travis/pycodetyle
     install:
-      - "./travis/python/install.sh"
+      - "./travis/pycodetyle/install.sh"
     script:
-      - "./travis/python/build.sh"
+      - "./travis/pycodetyle/build.sh"
       - python src/sysinfo.py -S
   - language: python
     python: 3.6
     os: linux
-    sudo: required
+    before_install:
+      - mkdir travis
+      - git clone https://github.com/TravisToolbox/pycodestyle-travis.git travis/pycodetyle
     install:
-      - "./travis/python/install.sh"
+      - "./travis/pycodetyle/install.sh"
     script:
-      - "./travis/python/build.sh"
+      - "./travis/pycodetyle/build.sh"
       - python src/sysinfo.py -S
   - language: ruby
     rvm: 2.2
+    before_install:
+      - mkdir travis
+      - git clone https://github.com/TravisToolbox/awesomebot-travis.git travis/awesomebot
     install:
-      - "./travis/markdown/install.sh"
-    script: 
-      - "./travis/markdown/build.sh"
+      - ./travis/awesomebot/install.sh
+    script:
+      - ./travis/awesomebot/build.sh
 notifications:
   email: false
   slack:

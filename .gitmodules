@@ -1,3 +1,0 @@
-[submodule "travis/python"]
-	path = travis/python
-	url = https://github.com/TravisToolbox/pycodestyle-travis.git
