@@ -111,7 +111,6 @@ def battery_info():
             "charging" if batt.percent < 100 else "fully charged"))
         print("plugged in: yes")
     else:
-        #print("left:       %s" % secs2hours(batt.secsleft))
         print("left:       %s" % seconds_to_days(batt.secsleft))
         print("status:     %s" % "discharging")
         print("plugged in: no")
@@ -462,7 +461,6 @@ def sensor_info():
                 "charging" if battery.percent < 100 else "fully charged"))
             print("    plugged in: yes")
         else:
-            #print("    left:       %s" % secs2hours(battery.secsleft))
             print("    left:       %s" % seconds_to_days(battery.secsleft))
             print("    status:     %s" % "discharging")
             print("    plugged in: no")
