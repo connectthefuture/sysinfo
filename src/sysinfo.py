@@ -35,7 +35,7 @@ def human_size(size_bytes, a_kilobyte_is_1024_bytes=True):
                       1024: [('bytes', 0), ('KiB', 0), ('MiB', 1), ('GiB', 2), ('TiB', 2), ('PiB', 2), ('EiB', 2), ('ZiB', 2), ('YiB', 2)]}
 
     if size_bytes < 0:
-        raise ValueError('number must be non-negative')
+        return "Unknown"
 
     if size_bytes == 1:
         return "1 byte"
@@ -60,6 +60,9 @@ def secs2hours(secs):
     """
     Convert the number of seconds into hours, mintues and seconds (digital format)
     """
+
+    if secs < 0:
+        return "Unknown"
 
     mm, ss = divmod(secs, 60)
     hh, mm = divmod(mm, 60)
@@ -108,7 +111,8 @@ def battery_info():
             "charging" if batt.percent < 100 else "fully charged"))
         print("plugged in: yes")
     else:
-        print("left:       %s" % secs2hours(batt.secsleft))
+        #print("left:       %s" % secs2hours(batt.secsleft))
+        print("left:       %s" % seconds_to_days(batt.secsleft))
         print("status:     %s" % "discharging")
         print("plugged in: no")
 
@@ -458,7 +462,8 @@ def sensor_info():
                 "charging" if battery.percent < 100 else "fully charged"))
             print("    plugged in: yes")
         else:
-            print("    left:       %s" % secs2hours(battery.secsleft))
+            #print("    left:       %s" % secs2hours(battery.secsleft))
+            print("    left:       %s" % seconds_to_days(battery.secsleft))
             print("    status:     %s" % "discharging")
             print("    plugged in: no")
 
