@@ -25,17 +25,6 @@ matrix:
       - "./travis/pycodetyle/build.sh"
       - python src/sysinfo.py -S
   - language: python
-    python: 3.3
-    os: linux
-    before_install:
-      - mkdir travis
-      - git clone https://github.com/TravisToolbox/pycodestyle-travis.git travis/pycodetyle
-    install:
-      - "./travis/pycodetyle/install.sh"
-    script:
-      - "./travis/pycodetyle/build.sh"
-      - python src/sysinfo.py -S
-  - language: python
     python: 3.4
     os: linux
     before_install:
