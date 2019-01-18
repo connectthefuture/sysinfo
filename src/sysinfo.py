@@ -114,7 +114,7 @@ def seconds_to_days(secs):
 
 def battery_info():
     if not hasattr(psutil, 'sensors_battery'):
-        print("platform not supported")
+        print('platform not supported')
         return 0
 
     batt = psutil.sensors_battery()
@@ -197,11 +197,11 @@ def free_memory_info():
     virt = psutil.virtual_memory()
     swap = psutil.swap_memory()
 
-    print("%-7s %10s %10s %10s %10s %10s %10s" % ('', 'total', 'used', 'free', 'shared', 'buffers', 'cache'))
-    print("%-7s %10s %10s %10s %10s %10s %10s" % ('Mem:', int(virt.total / 1024), int(virt.used / 1024), int(virt.free / 1024),
+    print('%-7s %10s %10s %10s %10s %10s %10s' % ('', 'total', 'used', 'free', 'shared', 'buffers', 'cache'))
+    print('%-7s %10s %10s %10s %10s %10s %10s' % ('Mem:', int(virt.total / 1024), int(virt.used / 1024), int(virt.free / 1024),
                                                   int(getattr(virt, 'shared', 0) / 1024), int(getattr(virt, 'buffers', 0) / 1024),
                                                   int(getattr(virt, 'cached', 0) / 1024)))
-    print("%-7s %10s %10s %10s %10s %10s %10s" % ('Swap:', int(swap.total / 1024), int(swap.used / 1024), int(swap.free / 1024), '', '', ''))
+    print('%-7s %10s %10s %10s %10s %10s %10s' % ('Swap:', int(swap.total / 1024), int(swap.used / 1024), int(swap.free / 1024), '', '', ''))
 
 
 # -------------------------------------------------------------------------------- #
@@ -249,7 +249,7 @@ def memory_info():
 # -------------------------------------------------------------------------------- #
 
 def netstat_info():
-    AD = "-"
+    AD = '-'
     AF_INET6 = getattr(socket, 'AF_INET6', object())
     proto_map = {
         (AF_INET, SOCK_STREAM): 'tcp',
@@ -263,7 +263,7 @@ def netstat_info():
         print('This option requires root permissions')
         return 0
 
-    print("%-5s %-30s %-30s %-13s %-6s %s" % ("Proto", "Local address", "Remote address", "Status", "PID", "Program name"))
+    print('%-5s %-30s %-30s %-13s %-6s %s' % ('Proto', 'Local address', 'Remote address', 'Status', 'PID', 'Program name'))
 
     for p in psutil.process_iter(attrs=['pid', 'name']):
         proc_names[p.info['pid']] = p.info['name']
@@ -273,7 +273,7 @@ def netstat_info():
         raddr = ''
         if c.raddr:
             raddr = '%s:%s' % (c.raddr)
-        print("%-5s %-30s %-30s %-13s %-6s %s" % (proto_map[(c.family, c.type)], laddr, raddr or AD, c.status,
+        print('%-5s %-30s %-30s %-13s %-6s %s' % (proto_map[(c.family, c.type)], laddr, raddr or AD, c.status,
                                                   c.pid or AD, proc_names.get(c.pid, '?')[:15]))
 
 
@@ -291,9 +291,9 @@ def network_info():
     }
 
     duplex_map = {
-        psutil.NIC_DUPLEX_FULL: "full",
-        psutil.NIC_DUPLEX_HALF: "half",
-        psutil.NIC_DUPLEX_UNKNOWN: "?",
+        psutil.NIC_DUPLEX_FULL: 'full',
+        psutil.NIC_DUPLEX_HALF: 'half',
+        psutil.NIC_DUPLEX_UNKNOWN: '?',
     }
 
     stats = psutil.net_if_stats()
@@ -620,21 +620,21 @@ def main(cmdline=None):
 def make_parser():
     parser = argparse.ArgumentParser(description='SysInfo')
 
-    parser.add_argument('-b', '--battery', help='Show all batttery information', action="store_true")
-    parser.add_argument('-c', '--cpu', help='Show all cpu information', action="store_true")
-    parser.add_argument('-d', '--disk', help='Show all disk information', action="store_true")
-    parser.add_argument('-F', '--fans', help='Show all fan information', action="store_true")
-    parser.add_argument('-f', '--free-memory', help='Show all memory information', action="store_true")
-    parser.add_argument('-l', '--load', help='Show all load information', action="store_true")
-    parser.add_argument('-m', '--memory', help='Show all memory information', action="store_true")
-    parser.add_argument('-n', '--network', help='Show all network information', action="store_true")
-    parser.add_argument('-N', '--netstat', help='Show all netstat information', action="store_true")
-    parser.add_argument('-o', '--operating-system', help='Show all operating system information', action="store_true")
-    parser.add_argument('-p', '--processes', help='Show all process information', action="store_true")
-    parser.add_argument('-s', '--sensors', help='Show all sensor information', action="store_true")
-    parser.add_argument('-t', '--temperature', help='Show all temperature information', action="store_true")
-    parser.add_argument('-u', '--uptime', help='Show all uptime information', action="store_true")
-    parser.add_argument('-S', '--summary', help='A summary overview', action="store_true")
+    parser.add_argument('-b', '--battery', help='Show all batttery information', action='store_true')
+    parser.add_argument('-c', '--cpu', help='Show all cpu information', action='store_true')
+    parser.add_argument('-d', '--disk', help='Show all disk information', action='store_true')
+    parser.add_argument('-F', '--fans', help='Show all fan information', action='store_true')
+    parser.add_argument('-f', '--free-memory', help='Show all memory information', action='store_true')
+    parser.add_argument('-l', '--load', help='Show all load information', action='store_true')
+    parser.add_argument('-m', '--memory', help='Show all memory information', action='store_true')
+    parser.add_argument('-n', '--network', help='Show all network information', action='store_true')
+    parser.add_argument('-N', '--netstat', help='Show all netstat information', action='store_true')
+    parser.add_argument('-o', '--operating-system', help='Show all operating system information', action='store_true')
+    parser.add_argument('-p', '--processes', help='Show all process information', action='store_true')
+    parser.add_argument('-s', '--sensors', help='Show all sensor information', action='store_true')
+    parser.add_argument('-t', '--temperature', help='Show all temperature information', action='store_true')
+    parser.add_argument('-u', '--uptime', help='Show all uptime information', action='store_true')
+    parser.add_argument('-S', '--summary', help='A summary overview', action='store_true')
 
     return parser
 
@@ -649,7 +649,7 @@ def make_parser():
 # something going wrong.                                                           #
 # -------------------------------------------------------------------------------- #
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
 
 # -------------------------------------------------------------------------------- #
