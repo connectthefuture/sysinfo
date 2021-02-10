@@ -1,2 +1,2 @@
-psutil==5.6.1
+psutil==5.6.6
 uptime==3.0.1
